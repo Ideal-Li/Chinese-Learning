@@ -8,20 +8,26 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
         integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href=".style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    
 </head>
 
 <body>
-
-
-    <form>
-        汉字:<br>
-        <input type="text" >
-        <br>
-
-    </form>
-<button type="button">点我!</button>
     
 
+<div id="app">
+  <p>{{ message }}</p>
+  <input v-model="message">
+</div>
+    
+    
+var app = new Vue({
+  el: '#app',
+  data: {
+    message: 'Input Your Chinese Characters Here'
+  }
+})
+    
 
 </body>
 
