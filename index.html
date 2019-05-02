@@ -19,7 +19,7 @@
   <input v-model="message">
 </div>
     
-    <button v-on:click="reverseMessage">Transfer</button>
+    <button v-on:click="transferToPinyin">Transfer</button>
     
 
 </body>
@@ -32,7 +32,11 @@ var app = new Vue({
   el: '#app',
   data: {
     message: ''
-  }
+  },
+     methods: {
+    transferToPinyin: function () {
+      this.message = this.message.split('').reverse().join('')
+    }
 })
     
     </script>
