@@ -17,7 +17,7 @@
   <p> Input Chinese Characters Here </p>
   <div id="app">
 
-    <input :rows="7" v-model="message">
+    <input  type="textarea" :rows="7" v-model="message">
   </div>
 
   <button v-on:click="transferToPinyin">Transfer</button>
