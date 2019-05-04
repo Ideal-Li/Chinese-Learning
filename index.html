@@ -28,11 +28,11 @@
 <textarea class="form-control" rows="3" placeholder="Input Chinese characters here"></textarea>
 </div>
 
-<button type="button" class="btn btn-primary"> Convert </button>
+
 
 <div id="app">
   <p>{{ message }}</p>
-  <button v-on:click="reverseMessage">逆转消息</button>
+  <button type="button" class="btn btn-primary" v-on:click="convertMessage"> Convert </button>
 </div>
 
 
@@ -54,7 +54,7 @@ var app = new Vue({
     message: 'Hello Vue.js!'
   },
   methods: {
-    reverseMessage: function () {
+    convertMessage: function () {
       this.message = this.message.split('').reverse().join('')
     }
   }
