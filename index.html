@@ -24,12 +24,18 @@
     <div class="row">
         <div class="col-md-8">
 
-          <div class="input-group">
-<input v-model="message" rows="4" placeholder="Input Chinese Characters Here">
-
-<textarea class="form-control" rows="3"></textarea>
+<div class="input-group">
+<textarea class="form-control" rows="3" placeholder="Input Chinese characters here"></textarea>
 </div>
+
 <button type="button" class="btn btn-primary"> Convert </button>
+
+<div id="app">
+  <p>{{ message }}</p>
+  <button v-on:click="reverseMessage">逆转消息</button>
+</div>
+
+
 </div>
 
 
@@ -40,5 +46,18 @@
 </html>
 
 <script>
+var R = reuqire("ramda");
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    message: 'Hello Vue.js!'
+  },
+  methods: {
+    reverseMessage: function () {
+      this.message = this.message.split('').reverse().join('')
+    }
+  }
+})
 
 </script>
