@@ -16,7 +16,7 @@
   <div class="jumbotron">
     <div class="container">
       <h1>Hello, world!</h1>
-      <p>This is a website for Chinese learners to transfer Chinese characters into Pinyin</p>
+      <p>This website helps convert Chinese characters into Pinyin</p>
     </div>
   </div>
 
@@ -24,9 +24,12 @@
     <div class="row">
         <div class="col-md-8">
 
-<input v-model="message" rows="3" placeholder="Input Chinese Characters Here">
+          <div class="input-group">
+<input v-model="message" rows="4" placeholder="Input Chinese Characters Here">
 
-<button type="button" class="btn btn-primary">Transfer </button>
+<textarea class="form-control" rows="3"></textarea>
+</div>
+<button type="button" class="btn btn-primary"> Convert </button>
 </div>
 
 
