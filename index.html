@@ -29,7 +29,7 @@
         </div>
 
         <div class="input-group">
-          <textarea class="form-control" rows="3" placeholder="Input Chinese characters here"
+          <textarea class="form-control" rows="3" placeholder=""
             v-model="message"></textarea>
 
           <button type="button" class="btn btn-primary btn-lg" v-on:click="ConvertMessage">Convert</button>
@@ -49,7 +49,7 @@
   var app = new Vue({
     el: '#app',
     data: {
-      message: ''
+      message: 'Input Chinese characters here'
     },
     methods: {
       ConvertMessage = function () {
