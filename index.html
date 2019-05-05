@@ -26,6 +26,11 @@
 
 <div class="input-group">
 <textarea class="form-control" rows="3" placeholder="Input Chinese characters here"></textarea>
+<div id="app-6">
+  <p>{{ message }}</p>
+  <input v-model="message">
+</div>
+
 </div>
 
 
@@ -45,17 +50,11 @@
 </html>
 
 <script>
-var R = reuqire("ramda");
 
-var app = new Vue({
-  el: '#app',
+var app6 = new Vue({
+  el: '#app-6',
   data: {
-    message: 'Hello Vue.js!'
-  },
-  methods: {
-    convertMessage: function () {
-      this.message = this.message.split('').reverse().join('')
-    }
+    message: ''
   }
 })
 
