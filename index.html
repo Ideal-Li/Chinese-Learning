@@ -22,13 +22,15 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-10">
         <div id="app">
           <div class="input-group">
-            <textarea class="form-control" rows="4" placeholder="Input Chinese characters here"></textarea>
+              <div id="app-6">
+            <textarea class="form-control" rows="3" placeholder="Input Chinese characters here" v-model="message"></textarea>
 
             <button type="button" class="btn btn-primary" v-on:click="ConvertMessage">Convert</button>
-            <textarea class="form-control" rows="4" ></textarea>
+            <textarea class="form-control" rows="3" ></textarea>
+            </div>
 
           </div>
         </div>
@@ -40,4 +42,10 @@
 </html>
 
 <script>
+  var app = new Vue({
+  el: '#app',
+  data: {
+    message: ''
+  }
+})
 </script>
