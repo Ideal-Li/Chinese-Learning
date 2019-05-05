@@ -23,16 +23,18 @@
   <div class="container">
     <div class="row">
       <div class="col-md-10">
+
         <div id="app">
           {{ message }}
+        </div>
 
-          <div class="input-group">
-            <textarea class="form-control" rows="3" placeholder="Input Chinese characters here"
-              v-model="message"></textarea>
+        <div class="input-group">
+          <textarea class="form-control" rows="3" placeholder="Input Chinese characters here"
+            v-model="message"></textarea>
 
-            <button type="button" class="btn btn-primary btn-lg" v-on:click="ConvertMessage">Convert</button>
+          <button type="button" class="btn btn-primary btn-lg" v-on:click="ConvertMessage">Convert</button>
 
-          </div>
+
 
         </div>
       </div>
