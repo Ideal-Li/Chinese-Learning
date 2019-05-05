@@ -29,8 +29,7 @@
 
             <button type="button" class="btn btn-primary btn-lg" v-on:click="ConvertMessage">Convert</button>
             <textarea class="form-control" rows="3" ></textarea>
-            <p>{{message}}</p>
-
+        
             </div>
 
           </div>
@@ -47,6 +46,11 @@
   el: '#app',
   data: {
     message: ''
+  },
+  methods:{
+    ConvertMessage = function(){
+      this.message = this.message.split('').reverse().join('')
+    }
   }
 })
 </script>
