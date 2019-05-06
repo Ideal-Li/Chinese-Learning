@@ -30,7 +30,7 @@
               v-model="message">{{message}}</textarea>
 
             <button type="button" class="btn btn-primary btn-lg" v-on:click="ConvertMessage">Convert</button>
-            <textarea class="form-control" rows="3">{{pinyin}}</textarea>
+            <textarea class="form-control" rows="3" v-model="pinyin">{{pinyin}}</textarea>
 
           </div>
 
@@ -44,7 +44,6 @@
 </html>
 
 <script>
-  var pinyin = require("pinyin");
   var app = new Vue({
     el: '#app',
     data: {
