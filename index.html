@@ -25,13 +25,14 @@
       <div class="col-md-10">
 
         <div id="app">
-        <div class="input-group">
-          <textarea class="form-control" rows="3" placeholder="Input Chinese characters here" v-model="message">{{message}}</textarea>
+          <div class="input-group">
+            <textarea class="form-control" rows="3" placeholder="Input Chinese characters here"
+              v-model="message">{{message}}</textarea>
 
-          <button type="button" class="btn btn-primary btn-lg" v-on:click="ConvertMessage">Convert</button>
-          <textarea class="form-control" rows="3" v-model="pinyin">{{pinyin}}</textarea>
+            <button type="button" class="btn btn-primary btn-lg" v-on:click="ConvertMessage">Convert</button>
+            <textarea class="form-control" rows="3" v-model="pinyin">{{pinyin}}</textarea>
 
-        </div>
+          </div>
 
         </div>
       </div>
@@ -43,17 +44,18 @@
 </html>
 
 <script>
-var app = new Vue({
-  el: '#app',
-  data: {
-    message: '',
-    pinyin:''
-  },
-  methods:{
-    ConvertMessage:function(){
-      this.pinyin = this.message
+  var pinyin = require("pinyin");
+  var app = new Vue({
+    el: '#app',
+    data: {
+      message: '',
+      pinyin: ''
+    },
+    methods: {
+      ConvertMessage: function () {
+        this.pinyin = pinyin(this.message)
+      }
     }
-  }
-})
+  })
 
 </script>
