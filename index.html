@@ -2,45 +2,42 @@
 <html>
 
 <head lang="en">
-  <meta charset="UTF-8">
-  <title>拼音汉字转换</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css"
-    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-
-<script type="text/javascript" src="pinyin_dict_noletter.js"></script>
-<script type="text/javascript" src="pinyinUtil.js"></script>
-<script type="text/javascript" src="simple-input-method/simple-input-method.js"></script>
+	<meta charset="UTF-8">
+	<title>拼音汉字转换</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="simple-input-method.js"></script>
 </head>
 
 <body>
 
-  <div class="jumbotron">
-    <div class="container">
-      <h1>Hello, world!</h1>
-      <p>This website helps convert Chinese characters into Pinyin</p>
-    </div>
-  </div>
+	<div class="jumbotron">
+		<div class="container">
+			<h1>Hello, world!</h1>
+			<p>This website helps convert Chinese characters into Pinyin</p>
+		</div>
+	</div>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-md-10">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-10">
 
-        <div id="app">
-          <div class="input-group">
-            <textarea class="form-control" rows="3" placeholder="Input Chinese characters here"
-              v-model="message">{{message}}</textarea>
+				<div id="app">
+					<div class="input-group">
+						<textarea class="form-control" rows="3" placeholder="Input Chinese characters here"
+							v-model="message">{{message}}</textarea>
 
-            <button type="button" class="btn btn-primary btn-lg" v-on:click="ConvertMessage">Convert</button>
-            <textarea class="form-control" rows="3" v-model="pinyin">{{pinyin}}</textarea>
+						<button type="button" class="btn btn-primary btn-lg" v-on:click="ConvertMessage">Convert</button>
+						<textarea class="form-control" rows="3" v-model="pinyin">{{pinyin}}</textarea>
 
-          </div>
+					</div>
 
-        </div>
-      </div>
-    </div>
-  </div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </body>
 
@@ -50,16 +47,13 @@
 
 
 
-	function getPinyin()
-	{
+	function getPinyin() {
 		var value = document.getElementById('test').value;
 		var type = document.querySelector('[name="pinyin_type"]:checked').value;
 		var polyphone = document.querySelector('[name="polyphone"]').checked;
 		var result = '';
-		if(value)
-		{
-			switch(type)
-			{
+		if (value) {
+			switch (type) {
 				case '0': result = pinyinUtil.getPinyin(value, ' ', true, polyphone); break;
 				case '1': result = pinyinUtil.getPinyin(value, ' ', false, polyphone); break;
 				case '2': result = pinyinUtil.getFirstLetter(value, polyphone); break;
@@ -67,48 +61,43 @@
 			}
 		}
 		var html = result;
-		if(result instanceof Array)
-		{
+		if (result instanceof Array) {
 			html = '<ol>';
-			result.forEach(function(val)
-			{
-				html += '<li>'+val+'</li>';
+			result.forEach(function (val) {
+				html += '<li>' + val + '</li>';
 			});
 			html += '</ol>';
 		}
 		document.getElementById('result').innerHTML = html;
 	}
 	document.getElementById('test').addEventListener('input', getPinyin);
-	document.getElementsByName('polyphone')[0].addEventListener('change', function(e)
-	{
+	document.getElementsByName('polyphone')[0].addEventListener('change', function (e) {
 		getPinyin();
 	});
-	document.addEventListener('change', function(e)
-	{
-		if(e.target.name === 'pinyin_type')
-		{
+	document.addEventListener('change', function (e) {
+		if (e.target.name === 'pinyin_type') {
 			getPinyin();
 		}
 	});
 	getPinyin();
-	
 
- 
+
+
 </script>
 
 <script>
-   var app = new Vue({
-    el: '#app',
-    data: {
-      message: '',
-      pinyin: ''
-    },
-    methods: {
-      ConvertMessage: function () {
-        this.pinyin = getPinyin(this.message)
-      }
-    }
-  })
+	var app = new Vue({
+		el: '#app',
+		data: {
+			message: '',
+			pinyin: ''
+		},
+		methods: {
+			ConvertMessage: function () {
+				this.pinyin = getPinyin(this.message)
+			}
+		}
+	})
 
 
-  </script>
+</script>
