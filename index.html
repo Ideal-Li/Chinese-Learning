@@ -8,9 +8,10 @@
   <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script type="text/javascript" src="dict/pinyin_dict_withtone.js"></script>
-  <script type="text/javascript" src="pinyinUtil.js"></script>
 
+<script type="text/javascript" src="pinyin_dict_noletter.js"></script>
+<script type="text/javascript" src="pinyinUtil.js"></script>
+<script type="text/javascript" src="simple-input-method/simple-input-method.js"></script>
 </head>
 
 <body>
@@ -45,20 +46,7 @@
 
 </html>
 
-<script>
-  var app = new Vue({
-    el: '#app',
-    data: {
-      message: '',
-      pinyin: ''
-    },
-    methods: {
-      ConvertMessage: function () {
-        this.pinyin = getPinyin(this.message)
-      }
-    }
-  })
-
+<script type="text/javascript">
 
 
 
@@ -104,4 +92,23 @@
 	});
 	getPinyin();
 	
+
+ 
 </script>
+
+<script>
+   var app = new Vue({
+    el: '#app',
+    data: {
+      message: '',
+      pinyin: ''
+    },
+    methods: {
+      ConvertMessage: function () {
+        this.pinyin = getPinyin(this.message)
+      }
+    }
+  })
+
+
+  </script>
