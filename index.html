@@ -1,85 +1,79 @@
 <!DOCTYPE html>
-<html class=" chrome-clearly-theme-default">
+<html>
 
 <head lang="en">
 	<meta charset="UTF-8">
-	<title>拼音汉字转换</title>
+
+	<style type="text/css">
+		img {
+			width: 60px;
+			height: 60px;
+			-moz-border-radius: 15px;
+			-webkit-border-radius: 15px;
+			border-radius: 15px;
+		}
+	</style>
+
+	<title>Learning Chinese</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css"
-		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-	<script type="text/javascript" src="pinyin_dict_withtone.js"></script>
-	<script type="text/javascript" src="pinyinUtil.js"></script>
+	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="./public/style.css">
+	<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script src="./public/jquery-3.2.1.min.js"></script>
+	<script src="./public/vue.min.js"></script>
+	<script src="./public/pinyin_dict_withtone.js"></script>
+	<script src="./public/pinyinUtil.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 </head>
 
 <body>
+	<div id="app">
 
-	<div class="jumbotron">
-		<div class="container">
+		<div class="jumbotron">
+			<div class ="container">
 			<h1>Hello, world!</h1>
-			<p>This website helps convert Chinese characters into Pinyin</p>
+			<p>This website helps <strong>convert</strong> Chinese characters into Pinyin & <strong>segment</strong> sentences</p>
+		  </div>
 		</div>
-	</div>
+		
+		<div class = "container">
 
-	<div class="container">
 		<div class="row">
-			<div class="col-md-10">
-
-				<div id="app">
-					<div class="input-group">
-						<textarea class="form-control" rows="3" placeholder="Input Chinese characters here"
-							v-model="message">{{message}}</textarea>
-
-						<button type="button" class="btn btn-primary btn-lg" v-on:click="ConvertMessage">Convert</button>
-						<textarea class="form-control" rows="3" v-model="pinyin">{{pinyin}}</textarea>
-
-					</div>
-
-				</div>
-			</div>
+			<h4> Convert Chinese Characters to Pinyin : </h4>
+			<textarea class="form-control" rows="3" placeholder="Input Chinese characters here"
+				v-model="message">{{message}}</textarea>
+			<button type="button" class="btn btn-info btn-lg" v-on:click="ConvertMessage">Convert</button>
+			<textarea class="form-control" rows="3" v-model="pinyin">{{pinyin}}</textarea>
 		</div>
+
+
+		<div class="row">
+			<h4> Segment full sentences into individual words: </h4>
+			<textarea class="form-control" rows="3" placeholder="Input full sentences here"
+				v-model="sentence">{{sentence}}</textarea>
+			<button type="button" class="btn btn-info btn-lg" v-on:click="SegmentSentence">Segment</button>
+			<textarea class="form-control" rows="3" v-model="fenci">{{fenci}}</textarea>
+		</div>
+
 	</div>
-
-
-	<form name="form1" action="/" method="post">
-		<div>
-			<textarea rows="10" cols="100" id="sentence">南京市长江大桥</textarea>
-		</div>
-	</form>
-	<input type="submit" value="开始分词" onclick="segment()">
-	
+	</div>
 
 </body>
 
 </html>
 
 <script type="text/javascript">
-    function segment(){
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/');
-        xhr.setRequestHeader("Content-Type" , "application/x-www-form-urlencoded")
-        xhr.send("sentence=" + document.getElementById("sentence").value);
-        xhr.timeout = 3000;
-        xhr.ontimeout = function(event){
-            alert('time out!');
-        }
-        xhr.onreadystatechange = function(){
-    　　　　if ( xhr.readyState == 4 && xhr.status == 200 ) {
-                document.getElementById("sentence").value = xhr.responseText;
-    　　　　} 
-    　　};
-    }
-	
-function getPinyin()
-	{
+
+	function getPinyin() {
 		var value = document.getElementById('test').value;
 		var type = document.querySelector('[name="pinyin_type"]:checked').value;
 		var polyphone = document.querySelector('[name="polyphone"]').checked;
 		var result = '';
-		if(value)
-		{
-			switch(type)
-			{
+		if (value) {
+			switch (type) {
 				case '0': result = pinyinUtil.getPinyin(value, ' ', true, polyphone); break;
 				case '1': result = pinyinUtil.getPinyin(value, ' ', false, polyphone); break;
 				case '2': result = pinyinUtil.getFirstLetter(value, polyphone); break;
@@ -87,32 +81,25 @@ function getPinyin()
 			}
 		}
 		var html = result;
-		if(result instanceof Array)
-		{
+		if (result instanceof Array) {
 			html = '<ol>';
-			result.forEach(function(val)
-			{
-				html += '<li>'+val+'</li>';
+			result.forEach(function (val) {
+				html += '<li>' + val + '</li>';
 			});
 			html += '</ol>';
 		}
 		document.getElementById('result').innerHTML = html;
 	}
 	document.getElementById('test').addEventListener('input', getPinyin);
-	document.getElementsByName('polyphone')[0].addEventListener('change', function(e)
-	{
+	document.getElementsByName('polyphone')[0].addEventListener('change', function (e) {
 		getPinyin();
 	});
-	document.addEventListener('change', function(e)
-	{
-		if(e.target.name === 'pinyin_type')
-		{
+	document.addEventListener('change', function (e) {
+		if (e.target.name === 'pinyin_type') {
 			getPinyin();
 		}
 	});
 	getPinyin();
-
-
 </script>
 
 <script>
@@ -120,11 +107,29 @@ function getPinyin()
 		el: '#app',
 		data: {
 			message: '',
-			pinyin: ''
+			pinyin: '',
+			sentence: '',
+			fenci: ''
 		},
 		methods: {
 			ConvertMessage: function () {
 				this.pinyin = pinyinUtil.getPinyin(this.message);
+			},
+			SegmentSentence: function () {
+				axios
+					.post('http://47.105.94.229:3000/cut', {
+						word: app.sentence
+					})
+					.then(function (response) {
+						return response.data;
+					})
+					.then(function (data) {
+						var result = data.result.join(' ');
+						app.fenci = result;
+					})
+					.catch(function (err) {
+						console.log(err);
+					})
 			}
 		}
 	})
