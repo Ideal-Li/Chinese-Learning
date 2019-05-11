@@ -5,7 +5,8 @@
 	<meta charset="UTF-8">
 	<title>Learning Chinese</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 	<link rel="stylesheet" href="./public/style.css">
 	<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -15,7 +16,9 @@
 	<script src="./public/pinyinUtil.js"></script>
 	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
 
 </head>
 
@@ -23,32 +26,59 @@
 	<div id="app">
 
 		<div class="jumbotron">
-			<div class ="container">
-			<h1>Hello, world!</h1>
-			<p>This website helps <strong>convert</strong> Chinese characters into Pinyin & <strong>segment</strong> sentences</p>
-		  </div>
-		</div>
-		
-		<div class = "container">
-
-		<div class="row">
-			<h4> Convert Chinese Characters to Pinyin : </h4>
-			<textarea class="form-control" rows="3" placeholder="Input Chinese characters here"
-				v-model="message">{{message}}</textarea>
-			<button type="button" class="btn btn-info btn-lg" v-on:click="ConvertMessage">Convert</button>
-			<textarea class="form-control" rows="3" v-model="pinyin">{{pinyin}}</textarea>
+			<div class="container">
+				<h1>Hello, world!</h1>
+				<p>This website helps <strong>convert</strong> Chinese characters into Pinyin & <strong>segment</strong>
+					sentences</p>
+			</div>
 		</div>
 
 
-		<div class="row">
-			<h4> Segment full sentences into individual words: </h4>
-			<textarea class="form-control" rows="3" placeholder="Input full sentences here"
-				v-model="sentence">{{sentence}}</textarea>
-			<button type="button" class="btn btn-info btn-lg" v-on:click="SegmentSentence">Segment</button>
-			<textarea class="form-control" rows="3" v-model="fenci">{{fenci}}</textarea>
-		</div>
 
-	</div>
+		<div class="container">
+
+			<ul class="nav nav-tabs">
+				<li role="presentation" class="active"><a data-toggle="tab" href="#Convert">Convert</a></li>
+				<li role="presentation"><a data-toggle="tab" href="#Segment">Segment</a></li>
+				<li role="presentation"><a data-toggle="tab" href="#Analyze">Analyze</a></li>
+			</ul>
+
+
+			<div class="row">
+
+				<div id="Convert" class="tab-pane fade in active">
+					<h5> Convert Chinese Characters to Pinyin : </h5>
+					<textarea class="form-control" rows="4" placeholder="Input Chinese characters here"
+						v-model="message">{{message}}</textarea>
+					<button type="button" class="btn btn-info btn-lg" v-on:click="ConvertMessage">Convert</button>
+					<textarea class="form-control" rows="4" v-model="pinyin">{{pinyin}}</textarea>
+
+				</div>
+			</div>
+
+
+
+			<div class="row">
+				<div id="Segment" class="tab-pane fade">
+					<h5> Segment full sentences into individual words: </h5>
+					<textarea class="form-control" rows="3" placeholder="Input full sentences here"
+						v-model="sentence">{{sentence}}</textarea>
+					<button type="button" class="btn btn-info btn-lg" v-on:click="SegmentSentence">Segment</button>
+					<textarea class="form-control" rows="3" v-model="fenci">{{fenci}}</textarea>
+				</div>
+			</div>
+
+			<div class="row">
+				<div id="Analyze" class="tab-pane fade">
+					<h4> Pin down the most frequently used characters: </h4>
+					<textarea class="form-control" rows="3" placeholder="Input the passage here"
+						v-model="passage">{{passage}}</textarea>
+					<button type="button" class="btn btn-info btn-lg" v-on:click="Analyze">Analyze</button>
+					<textarea class="form-control" rows="3" v-model="characters">{{characters}}</textarea>
+				</div>
+			</div>
+
+		</div>
 	</div>
 
 </body>
@@ -93,13 +123,16 @@
 </script>
 
 <script>
+
 	var app = new Vue({
 		el: '#app',
 		data: {
 			message: '',
 			pinyin: '',
 			sentence: '',
-			fenci: ''
+			fenci: '',
+			passage: '',
+			characters: ''
 		},
 		methods: {
 			ConvertMessage: function () {
@@ -107,7 +140,7 @@
 			},
 			SegmentSentence: function () {
 				axios
-					.post('https://api.shenzl.cn/cut', {
+					.post('http://47.105.94.229:3000/cut', {
 						word: app.sentence
 					})
 					.then(function (response) {
@@ -120,6 +153,9 @@
 					.catch(function (err) {
 						console.log(err);
 					})
+			},
+			Analyze: function () {
+				this.characters = this.passage;
 			}
 		}
 	})
