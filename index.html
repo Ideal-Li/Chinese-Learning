@@ -58,19 +58,19 @@
 
 				<div id="Segment" class="tab-pane fade">
 					<h5> Segment full sentences into individual words: </h5>
-					<textarea class="form-control" rows="3" placeholder="Input full sentences here"
+					<textarea class="form-control" rows="4" placeholder="Input full sentences here"
 						v-model="sentence">{{sentence}}</textarea>
 					<button type="button" class="btn btn-info btn-lg" v-on:click="SegmentSentence">Segment</button>
-					<textarea class="form-control" rows="3" v-model="fenci">{{fenci}}</textarea>
+					<textarea class="form-control" rows="4" v-model="fenci">{{fenci}}</textarea>
 				</div>
 
 
 				<div id="Analyze" class="tab-pane fade">
 					<h5> Pin down the most frequently used characters: </h5>
-					<textarea class="form-control" rows="3" placeholder="Input the passage here"
+					<textarea class="form-control" rows="4" placeholder="Input the passage here"
 						v-model="passage">{{passage}}</textarea>
 					<button type="button" class="btn btn-info btn-lg" v-on:click="Analyze">Analyze</button>
-					<textarea class="form-control" rows="3" v-model="characters">{{characters}}</textarea>
+					<textarea class="form-control" rows="4" v-model="characters">{{characters}}</textarea>
 				</div>
 
 			</div>
@@ -137,7 +137,7 @@
 			},
 			SegmentSentence: function () {
 				axios
-					.post('https://api.shenzl.cn/cut', {
+					.post('http://47.105.94.229:3000/cut', {
 						word: app.sentence
 					})
 					.then(function (response) {
