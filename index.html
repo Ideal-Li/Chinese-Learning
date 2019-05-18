@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="./public/style.css">
 	<link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="./public/jquery-3.2.1.min.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="./public/vue.min.js"></script>
 	<script src="./public/pinyin_dict_withtone.js"></script>
 	<script src="./public/pinyinUtil.js"></script>
@@ -65,18 +66,19 @@
 					<textarea class="form-control" rows="4" v-model="fenci">{{fenci}}</textarea>
 				</div>
 
-
 				<div id="Spelling" class="tab-pane fade">
-					<h5> Show how to spell Chinese characters in specific order: </h5>
-					<u>Input just ONE character please</u>
+						<h5> Repeatedly show the strokes of single character </h5>
 					<div id="character-target-div">
-						<input type="text" class="form-control" rows="1" v-model="character"
-							placeholder="Input the character here first">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Input just ONE character here:"
+								v-model="character">
+							<span class="input-group-btn">
+								<button id="animate-button" class="btn btn-info" type="button"
+									v-on:click="Spelling">Spell</button>
+							</span>
+						</div><!-- /input-group -->
 					</div>
-					<button id="animate-button" type="button" class="btn btn-info btn-lg" v-on:click="Spelling">Click Me
-						Twice</button>
 				</div>
-
 
 				<div id="Analyze" class="tab-pane fade">
 					<h5> Pin down the most frequently used characters: </h5>
@@ -163,7 +165,7 @@
 						app.fenci = result;
 					})
 					.catch(function (err) {
-						console.log(err);
+
 					})
 			},
 			Analyze: function () {
@@ -181,12 +183,11 @@
 					width: 200,
 					height: 200,
 					padding: 10,
-					showOutline: true
+					showOutline: true,
+					radicalColor: '#337ab7',
+					delayBetweenLoops: 3000
 				});
-				document.getElementById('animate-button').addEventListener('click', function () {
-					writer.animateCharacter();
-
-				});
+				writer.loopCharacterAnimation();
 			}
 
 		}
